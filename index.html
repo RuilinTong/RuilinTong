@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruilin Tong</title>
+<meta name="description" content="Ruilin Tong — PhD Candidate in Machine Learning at UNSW Sydney. Building AI systems that acquire, organize, and reuse knowledge over time.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fa;
+    --text: #1a1d21;
+    --muted: #5b6470;
+    --accent: #b86413;
+    --accent-soft: rgba(201, 120, 40, 0.14);
+    --border: rgba(120, 90, 50, 0.16);
+    --badge-bg: rgba(140, 100, 50, 0.10);
+    --badge-text: #7a5320;
+    --page: #fbf3ea;
+    --card-bg: rgba(255, 255, 255, 0.74);
+    --panel: rgba(255, 255, 255, 0.48);
+    --veil: rgba(255, 250, 243, 0.32);
+    --avatar-1: #e08a2b;
+    --avatar-2: #b5590f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --bg-soft: #171a21;
+      --text: #e6e8ec;
+      --muted: #9aa4b2;
+      --accent: #f0a862;
+      --accent-soft: rgba(240, 168, 98, 0.16);
+      --border: rgba(200, 170, 130, 0.18);
+      --badge-bg: rgba(240, 200, 150, 0.10);
+      --badge-text: #e2c49a;
+      --page: #0b0a08;
+      --card-bg: rgba(18, 20, 26, 0.74);
+      --panel: rgba(255, 255, 255, 0.05);
+      --veil: rgba(8, 8, 10, 0.72);
+      --avatar-1: #e0913a;
+      --avatar-2: #a85410;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    font-size: 17px;
+    background: var(--page) url("background.png") no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  /* Adaptive veil over the background image for readability (softens in light, dims in dark) */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background: var(--veil); pointer-events: none;
+  }
+  .wrap {
+    max-width: 950px; margin: 40px auto 48px; padding: 52px 48px 60px;
+    background: var(--card-bg);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(60,40,10,0.05), 0 18px 46px rgba(90,60,20,0.12);
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1, h2, h3 { font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif; }
+
+  /* Header */
+  header { display: flex; gap: 32px; align-items: center; }
+  .avatar {
+    width: 128px; height: 128px; border-radius: 50%; flex: 0 0 auto;
+    background: linear-gradient(135deg, var(--avatar-1) 0%, var(--avatar-2) 100%);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-family: Charter, Georgia, serif; font-size: 44px; font-weight: 700; letter-spacing: 1px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(60, 40, 10, 0.14);
+  }
+  .intro h1 { margin: 0 0 4px; font-size: 38px; line-height: 1.1; }
+  .intro .role { margin: 0; color: var(--muted); font-size: 16px; }
+  .intro .role strong { color: var(--text); font-weight: 600; }
+  .intro .tagline { margin: 12px 0 0; font-size: 17px; color: var(--text); font-family: Charter, Georgia, serif; }
+  .intro .tagline strong { color: var(--accent); font-weight: 600; }
+  .links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 15px; }
+  .links a { color: var(--muted); }
+  .links a:hover { color: var(--accent); }
+
+  /* Nav */
+  nav {
+    margin: 28px 0 4px; padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 6px 24px; font-size: 14.5px; font-weight: 500;
+  }
+  nav a { color: var(--muted); }
+  nav a:hover { color: var(--accent); text-decoration: none; }
+
+  section { margin-top: 44px; scroll-margin-top: 20px; }
+  section > h2 {
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--muted); margin: 0 0 18px; font-family: system-ui, sans-serif; font-weight: 700;
+  }
+  p { margin: 0 0 14px; }
+  .lead { font-size: 18px; }
+  .lead strong { color: var(--text); }
+
+  /* Research themes */
+  .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .theme {
+    border: 1px solid var(--border); border-radius: 10px; padding: 18px 18px 16px; background: var(--panel);
+  }
+  .theme h3 { margin: 0 0 6px; font-size: 16px; }
+  .theme p { font-size: 13.5px; color: var(--muted); margin: 0 0 10px; line-height: 1.5; }
+  .theme ul { margin: 0; padding-left: 16px; font-size: 14px; }
+  .theme li { margin: 3px 0; }
+
+  /* Timeline */
+  .timeline { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 22px; }
+  .tl { position: relative; padding: 0 0 20px; }
+  .tl:last-child { padding-bottom: 0; }
+  .tl::before {
+    content: ""; position: absolute; left: -29px; top: 4px; width: 12px; height: 12px;
+    border-radius: 50%; background: var(--accent); border: 2px solid var(--bg);
+  }
+  .tl .yr { font-family: Charter, Georgia, serif; font-weight: 700; font-size: 17px; }
+  .tl .desc { color: var(--muted); font-size: 15px; }
+
+  /* News */
+  .news { list-style: none; padding: 0; margin: 0; }
+  .news li { display: flex; gap: 14px; padding: 7px 0; font-size: 15px; border-top: 1px solid var(--border); }
+  .news li:first-child { border-top: none; }
+  .news .date { color: var(--accent); font-weight: 600; flex: 0 0 92px; font-size: 14px; }
+
+  /* Publications */
+  .pub { padding: 20px 0; border-top: 1px solid var(--border); }
+  .pub:first-of-type { border-top: none; padding-top: 0; }
+  .pub-title { font-weight: 600; font-family: system-ui, sans-serif; margin: 0 0 4px; font-size: 17.5px; }
+  .pub-authors { color: var(--muted); font-size: 15px; margin: 0 0 6px; }
+  .pub-authors .me { color: var(--text); font-weight: 600; }
+  .pub-desc { font-size: 15px; color: var(--muted); margin: 0 0 10px; }
+  .badge {
+    display: inline-block; background: var(--badge-bg); color: var(--badge-text);
+    font-size: 12.5px; font-weight: 600; padding: 2px 9px; border-radius: 5px;
+    margin-right: 8px; vertical-align: 1px; font-family: system-ui, sans-serif;
+  }
+  .badge.review { background: var(--accent-soft); color: var(--accent); }
+  .pub-links { font-size: 14px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .pub-links a { font-weight: 500; }
+
+  /* Compact earlier-publication line */
+  .pub-compact { font-size: 15px; color: var(--muted); padding-top: 16px; border-top: 1px solid var(--border); }
+  .pub-compact .t { color: var(--text); font-weight: 600; }
+
+  /* Two-column direction lists */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .cols h3 { font-size: 15px; margin: 0 0 8px; }
+  .cols ul { margin: 0; padding-left: 18px; font-size: 15px; }
+  .cols li { margin: 5px 0; }
+  .muted-note { color: var(--muted); font-size: 14px; margin-top: 16px; }
+
+  /* Timeline rows (education/service) */
+  .row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--border); }
+  .row:first-of-type { border-top: none; }
+  .row .what { font-weight: 600; }
+  .row .where { color: var(--muted); font-size: 15px; }
+  .row .when { color: var(--muted); font-size: 14px; white-space: nowrap; flex: 0 0 auto; }
+
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 720px) {
+    .themes { grid-template-columns: 1fr; }
+    .cols { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 32px 20px 44px; margin: 20px auto 24px; border-radius: 12px; }
+    header { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .avatar { width: 92px; height: 92px; font-size: 32px; }
+    .intro h1 { font-size: 30px; }
+    .row { flex-direction: column; gap: 2px; }
+    .row .when { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="avatar" src="assets/photo.jpg" alt="Ruilin Tong" width="128" height="128">
+    <div class="intro">
+      <h1>Ruilin Tong</h1>
+      <p class="role">PhD Candidate in Machine Learning &middot; <strong>UNSW Sydney</strong></p>
+      <p class="role">Advised by Prof. Dong Gong &middot; Expected 2027</p>
+      <p class="tagline">Building AI systems that <strong>acquire, organize, and reuse knowledge over time.</strong></p>
+      <div class="links">
+        <a href="mailto:ruilin.tong@unsw.edu.au">Email</a>
+        <a href="https://scholar.google.com/citations?user=VKSPaaEAAAAJ">Google Scholar</a>
+        <a href="https://github.com/RuilinTong">GitHub</a>
+        <a href="https://www.linkedin.com/in/ruilin-tong-24197641b/">LinkedIn</a>
+        <!-- TODO: add CV link once hosted, e.g. <a href="assets/cv.pdf">CV</a> -->
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#featured">Research</a>
+    <a href="#vision">Vision</a>
+    <a href="#themes">Themes</a>
+    <a href="#directions">Directions</a>
+    <a href="#news">News</a>
+    <a href="#about">About</a>
+  </nav>
+
+  <section id="featured">
+    <h2>Featured Research</h2>
+
+    <div class="pub">
+      <p class="pub-title">
+        <span class="badge review">Under review</span>
+        MILES: Modular Instruction Memory with Learnable Selection for Self-Improving LLM Reasoning
+      </p>
+      <p class="pub-authors"><span class="me">Ruilin Tong</span>, Dong Gong</p>
+      <p class="pub-desc">
+        A framework that lets a frozen LLM improve its own reasoning at test time by accumulating
+        reusable experience, with lightweight selection heads learned from the model's own confident
+        trajectories — no parameter updates required. Matches or outperforms prior memory-augmented
+        reasoning methods across six benchmarks and four backbone LLMs.
+      </p>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2607.06974">Paper (arXiv)</a>
+        <a href="https://github.com/RuilinTong/MILES-project-page">Project page</a>
+        <!-- TODO: add <a href="CODE_URL">Code</a> when released -->
+      </div>
+    </div>
+
+    <div class="pub">
+      <p class="pub-title">
+        <span class="badge">NeurIPS 2025</span>
+        Model Inversion with Layer-Specific Modeling and Alignment for Data-Free Continual Learning
+      </p>
+      <p class="pub-authors"><span class="me">Ruilin Tong</span>, Haodong Lu, Yuhang Liu, Dong Gong</p>
+      <p class="pub-desc">
+        Per-layer model inversion reduces the cost of synthesizing replay data, and contrastive feature
+        selection aligns it with the real feature distribution — making data-free continual learning
+        practical for large pre-trained backbones such as CLIP.
+      </p>
+      <div class="pub-links">
+        <a href="https://papers.nips.cc/paper_files/paper/2025/hash/1feddcfb42229ca84d3070c7d540daaa-Abstract-Conference.html">Paper</a>
+        <a href="https://github.com/RuilinTong/PMI-CFS-DFCL">Code</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <p class="pub-title">
+        <span class="badge">ICLR 2025</span>
+        Coreset Selection via Reducible Loss in Continual Learning
+      </p>
+      <p class="pub-authors"><span class="me">Ruilin Tong</span>, Yuhang Liu, Javen Qinfeng Shi, Dong Gong</p>
+      <p class="pub-desc">
+        Introduces reducible loss — the actual performance gain a sample provides — as a
+        forward-pass-only criterion for selecting informative replay data, avoiding the cost of
+        bilevel methods and naturally filtering out noisy samples.
+      </p>
+      <div class="pub-links">
+        <a href="https://openreview.net/forum?id=mAztx8QO3B">Paper (OpenReview)</a>
+        <a href="https://github.com/RuilinTong/CSReL-Coreset-CL">Code</a>
+      </div>
+    </div>
+
+    <p class="pub-compact">
+      <span class="badge">Interspeech 2020</span>
+      <span class="t">The HUAWEI Speaker Diarisation System for the VoxCeleb Speaker Diarisation Challenge.</span>
+      Renyu Wang, <span style="color:var(--text)">Ruilin Tong</span>, Yu Ting Yeung, Xiao Chen.
+      VoxSRC Workshop. <a href="https://arxiv.org/abs/2010.11657">arXiv:2010.11657</a>
+    </p>
+  </section>
+
+  <section id="vision">
+    <h2>Research Vision</h2>
+    <p class="lead">
+      My long-term goal is to build AI systems that <strong>acquire, organize, and reuse knowledge
+      over time</strong> — systems that learn continually, remember efficiently, and reason from
+      accumulated experience rather than being retrained from scratch.
+    </p>
+    <p>
+      Across my work, a single question recurs: <em>how should a model decide what is worth keeping,
+      and how to reuse it, when data, memory, and compute are limited?</em> Each of my projects is
+      one step toward this vision — from selecting the most informative data to keep
+      (<a href="#featured">CSReL</a>), to reconstructing knowledge that can no longer be stored
+      (<a href="#featured">PMI-CFS</a>), to building language models that improve their own reasoning
+      by accumulating reusable experience (<a href="#featured">MILES</a>).
+    </p>
+  </section>
+
+  <section id="themes">
+    <h2>Research Themes</h2>
+    <p>I organize my research around three connected themes rather than isolated papers:</p>
+    <div class="themes">
+      <div class="theme">
+        <h3>Learning under Constraints</h3>
+        <p>How can models keep learning when data, memory, or privacy is limited?</p>
+        <ul>
+          <li>Continual learning</li>
+          <li>Coreset selection &amp; data curation</li>
+          <li>Data-free learning &amp; model inversion</li>
+        </ul>
+      </div>
+      <div class="theme">
+        <h3>Reasoning</h3>
+        <p>How can models reason more reliably by spending computation at inference time?</p>
+        <ul>
+          <li>LLM reasoning</li>
+          <li>Test-time computation</li>
+          <li>Search &amp; planning</li>
+        </ul>
+      </div>
+      <div class="theme">
+        <h3>Memory &amp; Self-Improving Agents</h3>
+        <p>How can systems accumulate and reuse experience to improve themselves?</p>
+        <ul>
+          <li>Memory-augmented reasoning</li>
+          <li>Self-improving agents</li>
+          <li>Meta-memory</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2>Research Trajectory</h2>
+    <div class="timeline">
+      <div class="tl">
+        <div class="yr">2023 &ndash; 2024</div>
+        <div class="desc">Began PhD at UNSW; foundations in continual learning and catastrophic forgetting.</div>
+      </div>
+      <div class="tl">
+        <div class="yr">2025 &middot; Data-centric &amp; data-free continual learning</div>
+        <div class="desc">Which data is worth keeping, and how to recover it when it cannot be stored — CSReL (ICLR 2025) and PMI-CFS (NeurIPS 2025), extending to vision-language models like CLIP.</div>
+      </div>
+      <div class="tl">
+        <div class="yr">2026 &middot; Self-improving reasoning</div>
+        <div class="desc">From remembering data to reusing experience — MILES builds frozen LLMs that improve their own reasoning through learned, modular memory.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="directions">
+    <h2>Future Directions</h2>
+    <div class="cols">
+      <div>
+        <h3>Current focus</h3>
+        <ul>
+          <li>Test-time self-improvement without weight updates</li>
+          <li>Data valuation for foundation models</li>
+          <li>Shift-aware, reliable memory selection</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Longer-term</h3>
+        <ul>
+          <li>Lifelong reasoning agents</li>
+          <li>Meta-memory: learning what and how to remember</li>
+          <li>Agents that accumulate experience across tasks</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted-note">
+      The connecting thread: moving from models that <em>remember data</em> toward agents that
+      <em>accumulate and reuse experience</em> — reliably, and without constant retraining.
+    </p>
+  </section>
+
+  <section id="news">
+    <h2>News</h2>
+    <ul class="news">
+      <li><span class="date">Jul 2026</span><span>MILES preprint released on <a href="https://arxiv.org/abs/2607.06974">arXiv</a>; manuscript under review.</span></li>
+      <li><span class="date">Sep 2025</span><span>PMI-CFS accepted to <strong>NeurIPS 2025</strong>.</span></li>
+      <li><span class="date">Jan 2025</span><span>CSReL accepted to <strong>ICLR 2025</strong>.</span></li>
+    </ul>
+  </section>
+
+  <section id="about">
+    <h2>About &amp; Background</h2>
+    <p>
+      Before my PhD, I was a Research Engineer at Huawei's Noah's Ark Laboratory, working on multimodal
+      and audio learning. I review for NeurIPS, ICLR, ACM Multimedia, and Pattern Recognition, and was a
+      <strong>Top Reviewer at NeurIPS 2025</strong>.
+    </p>
+    <div class="row">
+      <div>
+        <div class="what">PhD, Machine Learning &middot; University of New South Wales</div>
+        <div class="where">Advisor: Prof. Dong Gong</div>
+      </div>
+      <div class="when">2023 &ndash; present</div>
+    </div>
+    <div class="row">
+      <div>
+        <div class="what">Research Engineer &middot; Huawei, Noah's Ark Laboratory</div>
+        <div class="where">Multimodal &amp; audio learning</div>
+      </div>
+      <div class="when">2019 &ndash; 2021</div>
+    </div>
+    <div class="row">
+      <div>
+        <div class="what">MEng, Control Science and Engineering &middot; Tianjin University</div>
+        <div class="where">Advisor: Prof. Zhen Zhang</div>
+      </div>
+      <div class="when">2016 &ndash; 2019</div>
+    </div>
+    <div class="row">
+      <div>
+        <div class="what">BEng, Electrical Engineering &amp; Automation &middot; Northwestern Polytechnical University</div>
+      </div>
+      <div class="when">2012 &ndash; 2016</div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Ruilin Tong &middot; ruilin.tong@unsw.edu.au &middot; Sydney, Australia
+  </footer>
+
+</div>
+</body>
+</html>
